@@ -331,7 +331,8 @@ def concat_wavs_with_ffmpeg(chapter_files, output_folder, filename):
         'ffmpeg', '-y', '-f', 'concat', '-safe', '0', '-i', wav_list_txt,
         '-c', 'copy',
         '-c:a', 'libfdk_aac',
-        '-b:a', '192k',
+        '-afterburner', '1',
+        '-vbr', '2',
         concat_file_path])
     Path(wav_list_txt).unlink()
     return concat_file_path
@@ -364,7 +365,7 @@ def create_m4b(chapter_files, filename, cover_image, output_folder):
         '-i', f'{chapters_txt_path}',  # Input chapters
         *cover_image_args,  # Cover image (if provided)
 
-        '-map', '0:a',  # Map audio
+        #'-map', '0:a',  # Map audio
         '-c:a', 'aac',  # Convert to AAC
         '-b:a', '64k',  # Reduce bitrate for smaller size
 
